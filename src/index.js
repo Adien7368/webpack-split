@@ -1,14 +1,13 @@
-import { Verma } from './String/strings'; 
+import { Verma } from './Strings/strings'; 
+import { initUI } from './vendor_modules/PrestoDOM';
+async function component() {
+  initUI(); 
 
-function component() {
-  
   const element = document.createElement('div');
-
-  // Lodash, currently included via a script, is required for this line to work
-  element.innerHTML = _.join(['Hello', Verma()], ' ');
-  import('./flow').then(m => m.flow());
-
+  element.innerHTML = `<h1> Hello ${Verma()} </h1>`;
+  const { flow } = await import('./Flow/flow');
+  await flow();
   return element;
 }
 
-document.body.appendChild(component());
+component().then(m => document.body.appendChild(m));
